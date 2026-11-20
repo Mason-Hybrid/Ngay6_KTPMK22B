@@ -1,0 +1,38 @@
+@model Ngay6_KTPMK22B.Models.Movie
+
+@{
+    ViewData["Title"] = "Movie Details";
+}
+
+<h1>@Model.Title</h1>
+
+<div>
+    <dl>
+        <dt>Title</dt>
+        <dd>@Model.Title</dd>
+
+        <dt>Release Date</dt>
+        <dd>@Model.ReleaseDate.ToString("yyyy-MM-dd")</dd>
+
+        <dt>Duration (minutes)</dt>
+        <dd>@Model.Duration</dd>
+
+        <dt>Genre</dt>
+        <dd>
+            @if (Model.Genre != null)
+            {
+                @Model.Genre.Name
+            }
+            else
+            {
+                <text>N/A</text>
+            }
+        </dd>
+    </dl>
+</div>
+
+<div>
+    <a asp-action="Edit" asp-route-id="@Model?.Id">Edit</a> |
+    <a asp-action="Index">Back to List</a>
+</div>
+

@@ -1,0 +1,40 @@
+@model Ngay6_KTPMK22B.Models.Genre
+
+@{
+    ViewData["Title"] = "Genre Details";
+}
+
+<h1>@Model.Name</h1>
+
+<div>
+    <dl>
+        <dt>ID</dt>
+        <dd>@Model.Id</dd>
+
+        <dt>Name</dt>
+        <dd>@Model.Name</dd>
+
+        <dt>Movies</dt>
+        <dd>
+            @if (Model.Movies != null && Model.Movies.Count > 0)
+            {
+                <ul>
+                    @foreach (var movie in Model.Movies)
+                    {
+                        <li>@movie.Title (@movie.ReleaseDate.Year)</li>
+                    }
+                </ul>
+            }
+            else
+            {
+                <p>No movies in this genre.</p>
+            }
+        </dd>
+    </dl>
+</div>
+
+<div>
+    <a asp-action="Edit" asp-route-id="@Model?.Id">Edit</a> |
+    <a asp-action="Index">Back to List</a>
+</div>
+

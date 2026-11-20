@@ -1,0 +1,79 @@
+@model IEnumerable<Ngay6_KTPMK22B.Models.Genre>
+
+@{
+    ViewData["Title"] = "Genres";
+}
+
+<h1>Genres</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+
+<table border="1" cellpadding="10" cellspacing="0">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Movies</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>@item.Id</td>
+            <td>@item.Name</td>
+            <td>
+                @if (item.Movies != null && item.Movies.Count > 0)
+                {
+                    @item.Movies.Count
+                }
+                else
+                {
+                    <text>0</text>
+                }
+            </td>
+            <td>
+                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
+                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
+
+<!-- Pagination -->
+<br />
+<div>
+    @{
+        int currentPage = (int)ViewBag.CurrentPage;
+        int totalPages = (int)ViewBag.TotalPages;
+    }
+
+    @if (currentPage > 1)
+    {
+        <a asp-action="Index" asp-route-page="1">First</a>
+        <a asp-action="Index" asp-route-page="@(currentPage - 1)">Previous</a>
+    }
+
+    @for (int i = Math.Max(1, currentPage - 2); i <= Math.Min(totalPages, currentPage + 2); i++)
+    {
+        @if (i == currentPage)
+        {
+            <strong>@i</strong>
+        }
+        else
+        {
+            <a asp-action="Index" asp-route-page="@i">@i</a>
+        }
+    }
+
+    @if (currentPage < totalPages)
+    {
+        <a asp-action="Index" asp-route-page="@(currentPage + 1)">Next</a>
+        <a asp-action="Index" asp-route-page="@totalPages">Last</a>
+    }
+</div>
+
